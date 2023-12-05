@@ -210,7 +210,7 @@ export default {
 
     let form = reactive({});
 
-    // 校验规则
+    // 校验规则 @
     const rules = reactive({
       name: [
         {
