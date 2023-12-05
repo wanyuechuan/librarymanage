@@ -1,26 +1,86 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <router-view class="contaienr" />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
+    
+  },
+};
+
+// 解决ERROR ResizeObserver loop completed with undelivered notifications.
+
+//问题的
+
+const debounce = (fn, delay) => {
+
+  let timer = null;
+
+  return function () {
+
+    let context = this;
+
+    let args = arguments;
+
+    clearTimeout(timer);
+
+    timer = setTimeout(function () {
+
+      fn.apply(context, args);
+
+    }, delay);
+
   }
+
 }
+
+// 解决ERROR ResizeObserver loop completed with undelivered notifications.
+
+//问题的
+
+const _ResizeObserver = window.ResizeObserver;
+
+window.ResizeObserver = class ResizeObserver extends _ResizeObserver {
+
+  constructor(callback) {
+
+    callback = debounce(callback, 16);
+
+    super(callback);
+
+  }
+
+}
+
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+
+#app{
+  width: 100%;
+  height: 100%;
 }
+
+
+* {
+  margin: 0;
+  padding: 0; 
+}
+a{
+  color: #777778;
+  text-decoration: none;
+}
+body {
+  width: 100%;
+  height: 100vh;
+}
+.contaienr{
+  width: 100%;
+  height: 100%;
+}
+
 </style>
